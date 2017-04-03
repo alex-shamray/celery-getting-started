@@ -17,9 +17,20 @@ class Command < Vagrant.plugin("2", :command)
 end
 
 
+class CeleryWorkerCommand < Command
+  def self.synopsis
+    'starts Celery worker instance'
+  end
+
+  def command
+    'cd /vagrant; celery -A proj worker -l info'
+  end
+end
+
+
 class CeleryMultiStartCommand < Command
   def self.synopsis
-    'starts single Celery worker with explicit name'
+    'starts single Celery worker with explicit name in the background'
   end
 
   def command
@@ -63,6 +74,10 @@ end
 
 class Plugin < Vagrant.plugin("2")
   name "Additional Vagrant commands"
+
+  command("celery-worker") do
+    CeleryWorkerCommand
+  end
 
   command("celery-multi-start") do
     CeleryMultiStartCommand
