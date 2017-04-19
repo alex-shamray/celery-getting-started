@@ -72,6 +72,17 @@ class CeleryMultiStopwaitCommand < Command
 end
 
 
+class PythonCommand < Command
+  def self.synopsis
+    'starts Python interpreter'
+  end
+
+  def command
+    'cd /vagrant; python3'
+  end
+end
+
+
 class Plugin < Vagrant.plugin("2")
   name "Additional Vagrant commands"
 
@@ -93,5 +104,9 @@ class Plugin < Vagrant.plugin("2")
 
   command("celery-multi-stopwait") do
     CeleryMultiStopwaitCommand
+  end
+
+  command("python") do
+    PythonCommand
   end
 end
