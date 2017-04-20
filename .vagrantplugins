@@ -72,6 +72,17 @@ class CeleryMultiStopwaitCommand < Command
 end
 
 
+class CeleryEventsCommand < Command
+  def self.synopsis
+    'starts Celery graphical monitor'
+  end
+
+  def command
+    'cd /vagrant; celery -A proj control enable_events; celery -A proj events'
+  end
+end
+
+
 class PythonCommand < Command
   def self.synopsis
     'starts Python interpreter'
@@ -104,6 +115,10 @@ class Plugin < Vagrant.plugin("2")
 
   command("celery-multi-stopwait") do
     CeleryMultiStopwaitCommand
+  end
+
+  command("celery-events") do
+    CeleryEventsCommand
   end
 
   command("python") do
